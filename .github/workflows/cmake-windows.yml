@@ -1,0 +1,28 @@
+name: CMake Windows
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure
+      run: cmake -B build
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: tb_icon
+        path: |
+          build\Release\tb_icon.exe
+          build\Release\tb_icon_lib.lib
