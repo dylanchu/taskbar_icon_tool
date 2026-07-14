@@ -1,10 +1,10 @@
-name: CMake Windows
+name: build-on-windows
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build:
@@ -24,5 +24,5 @@ jobs:
       with:
         name: tb_icon
         path: |
-          build\Release\tb_icon.exe
-          build\Release\tb_icon_lib.lib
+          build/Release/tb_icon.exe
+          build/Release/tb_icon_lib.lib
