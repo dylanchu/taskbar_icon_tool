@@ -81,9 +81,31 @@ tb_icon list Notepad2_x64.exe
 
 Output columns: HWND, PID, process name, AUMID, window title.
 
-## Config File Mode
+## Daemon Mode (no arguments)
 
-Running without arguments (double-click or CLI with no args) reads `tb_icon.ini` from the exe directory and applies all rules. It first clears overlays for every process mentioned in the file, then applies each rule in order.
+Running without arguments starts a **system-tray resident daemon**. It applies rules from `tb_icon.ini` to existing windows, then stays in the tray and automatically applies overlay badges to new windows as they open.
+
+| Action | How |
+|--------|-----|
+| Start | Double-click `tb_icon.exe` or run it with no arguments |
+| Edit config | **Double-click** the tray icon to open `tb_icon.ini` in your default editor |
+| Reload | Close the editor — the daemon detects the change and re-applies rules automatically |
+| Re-apply | Right-click tray icon → **Re-apply** (re-applies current rules to all windows) |
+| Reset all | Right-click tray icon → **Reset all** (clears all overlays and re-groups taskbar buttons) |
+| Exit | Right-click tray icon → **Exit** |
+
+The daemon uses `SetWinEventHook` to react to new windows as they appear, with a 1-second delay to allow the taskbar button to initialize. INI file changes are detected via `FindFirstChangeNotification` (no polling).
+
+### One-shot mode (`tb_icon once`)
+
+To apply rules and exit immediately (the old behavior), use:
+
+```bat
+tb_icon once
+tb_icon once "C:\path\to\tb_icon.ini"
+```
+
+## Config File Mode
 
 ### INI Format
 

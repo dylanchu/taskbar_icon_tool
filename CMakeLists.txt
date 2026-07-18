@@ -39,6 +39,8 @@ target_link_libraries(tb_icon_lib PUBLIC
 # ===== CLI executable: tb_icon =====
 add_executable(tb_icon
     src/main.cpp
+    src/config.cpp
+    src/daemon.cpp
 )
 
 target_link_libraries(tb_icon PRIVATE
